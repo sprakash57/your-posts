@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Users from './components/Users';
+import UserDetails from './components/UserDetails';
+import Posts from './components/Posts';
+import Comments from './components/Comments';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/users' component={Users} />
+        <Route exact path='/users/:id' component={UserDetails} />
+        <Route exact path='/posts' component={Posts} />
+        <Route exact path='/posts/:id' component={Comments} />
+      </Switch>
+    </HashRouter>
   );
 }
 
