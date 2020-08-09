@@ -19,6 +19,7 @@ const Employees: React.FC = () => {
             const response: AxiosResponse<IEmployee[]> = await axios.get(USERS);
             setUsers(response.data);
         } catch (error) {
+            console.log(error);
             setNtwkIssue(true);
         }
         setLoading(false);
