@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
-type IProps = { pageTitle: string };
+type IProps = { pageTitle: string | undefined };
 
 const Layout: React.FC<IProps> = (props) => {
     return (

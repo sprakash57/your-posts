@@ -22,3 +22,7 @@ export interface IUser {
     username: string,
     website: string
 }
+
+export interface IUserDetailRoute {
+    match: { params: { id: number } }
+}

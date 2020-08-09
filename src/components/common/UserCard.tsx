@@ -67,7 +67,7 @@ const UserCard: React.FC<IProps> = (props) => {
                 <Divider />
             </CardContent>
             <CardActions>
-                <Link className={classes.links} to={`/user/${id}`}>Full profile</Link>
+                <Link className={classes.links} to={`/users/${id}`}>Full profile</Link>
             </CardActions>
         </Card>
     );

@@ -36,7 +36,6 @@ const Users: React.FC = () => {
         }
         setLoading(false);
     }
-    console.log(users);
     const renderContent = () => {
         if (loading) {
             return <CircularProgress />
