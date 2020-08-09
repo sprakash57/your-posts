@@ -12,7 +12,7 @@ export interface ICompany {
     name: string
 }
 
-export interface IUser {
+export interface IEmployee {
     address: IAddress,
     company: ICompany,
     email: string,
@@ -23,6 +23,13 @@ export interface IUser {
     website: string
 }
 
-export interface IUserDetailRoute {
+export interface IEmployeeDtlRoute {
     match: { params: { id: number } }
+}
+
+export interface IPosts {
+    userId: number,
+    id: number,
+    title: string,
+    body: string
 }

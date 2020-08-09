@@ -1,35 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
-// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { USERS } from '../constants';
-import { IUser } from '../interfaces';
+import { IEmployee } from '../interfaces';
 import Layout from './common/Layout';
 import { Box } from '@material-ui/core';
-import UserCard from './common/UserCard';
+import EmployeeCard from './common/EmployeeCard';
 
-// const useStyles = makeStyles((theme: Theme) =>
-//     createStyles({
-//         root: {
-//             display: 'flex',
-//             '& > * + *': {
-//                 marginLeft: theme.spacing(2),
-//             },
-//         },
-//     }),
-// )
+const Employees: React.FC = () => {
 
-const Users: React.FC = () => {
-
-    // const cls = useStyles();
-
-    const [users, setUsers] = useState<IUser[]>([]);
+    const [users, setUsers] = useState<IEmployee[]>([]);
     const [loading, setLoading] = useState(true);
     const [ntwkIssue, setNtwkIssue] = useState(false);
 
     const loadUsers = async () => {
         try {
-            const response: AxiosResponse<IUser[]> = await axios.get(USERS);
+            const response: AxiosResponse<IEmployee[]> = await axios.get(USERS);
             setUsers(response.data);
         } catch (error) {
             setNtwkIssue(true);
@@ -42,7 +28,7 @@ const Users: React.FC = () => {
         } else if (ntwkIssue) {
             return <p>You are not connected to network</p>
         } else {
-            return <Box>{users.length && users.map(user => <UserCard key={user.id} user={user} />)}</Box>
+            return <Box>{users.length && users.map(user => <EmployeeCard key={user.id} user={user} />)}</Box>
         }
     }
 
@@ -51,7 +37,7 @@ const Users: React.FC = () => {
     }, []);
 
     return (
-        <Layout pageTitle='Users'>
+        <Layout pageTitle='Employees'>
             <section className='users-list'>
                 {renderContent()}
             </section>
@@ -59,5 +45,4 @@ const Users: React.FC = () => {
     )
 }
 
-
-export default Users;
+export default Employees;

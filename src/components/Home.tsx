@@ -4,10 +4,10 @@ import Layout from './common/Layout';
 
 const Home: React.FC = () => {
     return (
-        <Layout pageTitle='Welcome to your posts!'>
+        <Layout pageTitle='Welcome to Your posts!'>
             <section className='links'>
-                <Link to='/posts'>Posts</Link>
-                <Link to='/users'>Users</Link>
+                <Link to='/posts'>All Posts</Link>
+                <Link to='/employees'>Employees</Link>
             </section>
         </Layout>
     )

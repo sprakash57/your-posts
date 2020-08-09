@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { Box, Divider } from '@material-ui/core';
-import { IUser } from '../../interfaces';
+import { IEmployee } from '../../interfaces';
 
 const useStyles = makeStyles({
     root: {
@@ -37,9 +37,9 @@ const useStyles = makeStyles({
     }
 });
 
-type IProps = { user: IUser }
+type IProps = { user: IEmployee }
 
-const UserCard: React.FC<IProps> = (props) => {
+const EmployeeCard: React.FC<IProps> = (props) => {
     const { name, address: { city }, email, website, phone, id } = props.user;
     const classes = useStyles();
     console.log(props);
@@ -67,10 +67,10 @@ const UserCard: React.FC<IProps> = (props) => {
                 <Divider />
             </CardContent>
             <CardActions>
-                <Link className={classes.links} to={`/users/${id}`}>Full profile</Link>
+                <Link className={classes.links} to={`/employees/${id}`}>Full profile</Link>
             </CardActions>
         </Card>
     );
 }
 
-export default UserCard;
+export default EmployeeCard;
