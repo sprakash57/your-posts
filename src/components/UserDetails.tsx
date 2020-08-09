@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function UserDetails() {
+const UserDetails = () => {
     return (
         <div>
             UserDetails
         </div>
     )
 }
+
+export default UserDetails;

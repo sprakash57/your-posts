@@ -7,15 +7,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.home-root {
-  height: 60vh;
-  display: flex;
+.layout {
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     font-family: cursive;
+    margin-bottom: 4rem;
   }
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+  width: 75%;
+  margin: 0 auto;
+  a {
+    display: block;
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: black;
+    border: 1px solid white;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+    padding: 2.5rem;
+    border-radius: 10px;
+    &:hover {
+      background-color: #f3f0f0;
+    }
+  }
+}
+
+.users-list {
+  width: 75%;
 }

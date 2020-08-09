@@ -1,17 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Layout from './common/Layout';
 
 const Home: React.FC = () => {
     return (
-        <main className='home-root'>
-            <header>
-                <h1>Your Posts!!</h1>
-            </header>
-            <section className='home-links'>
+        <Layout pageTitle='Welcome to your posts!'>
+            <section className='links'>
                 <Link to='/posts'>Posts</Link>
-                <Link to='/users'>users</Link>
+                <Link to='/users'>Users</Link>
             </section>
-        </main>
+        </Layout>
     )
 }
 
