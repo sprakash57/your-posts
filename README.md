@@ -37,4 +37,4 @@ Your app is ready to be deployed!
 
 ## Description
 
-This app is fetching all posts and employees data from `https://jsonplaceholder.typicode.com/` and rendering them on UI.
+This app is fetching all posts and employees data from `https://jsonplaceholder.typicode.com/` and rendering them on UI. Please note that current location (geocode) under Employee details will only work if you have valid API key and is should present in `.env` file as `REACT_APP_LOC_API`.

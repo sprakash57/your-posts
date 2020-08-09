@@ -5,7 +5,7 @@ import { Box, Divider, Avatar, Typography, CardContent, Card } from '@material-u
 import Layout from './common/Layout';
 import { IEmployeeDtlRoute, IEmployee, ILocation } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
-import { USERS, IMAGE, LOCATION_API } from '../constants';
+import { USERS, IMAGE, LOCATION_API, API_KEY_MISSING } from '../constants';
 import Navbar from './common/Navbar';
 import RenderContent from './common/RenderContent';
 
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        marginBottom: 10
     },
     large: {
         width: theme.spacing(15),
@@ -56,8 +57,9 @@ const EmployeeDetails: React.FC<IEmployeeDtlRoute> = (props) => {
             const { lat, lng } = response.data.address.geo;
             const location: AxiosResponse<CurrentLocation> = await axios.get(`${LOCATION_API}${lat},${lng}&key=${process.env.REACT_APP_LOC_API}`);
             const { data } = location;
-            setLocation(data.results[0].formatted_address)
+            if (data.results.length) setLocation(data.results[0].formatted_address);
         } catch (error) {
+            console.log(error);
             setNtwkIssue(true);
         }
         setLoading(false);
@@ -81,7 +83,7 @@ const EmployeeDetails: React.FC<IEmployeeDtlRoute> = (props) => {
                                     <strong>{details?.username}</strong>
                                 </Typography>
                                 <Typography variant='body1'>
-                                    <span role='img' aria-label='location'>📌</span> {location || 'Location not available'}
+                                    <span role='img' aria-label='location'>📌</span> {location || API_KEY_MISSING}
                                 </Typography>
                             </Box>
                             <Box className={classes.pos}>
