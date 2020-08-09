@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import Layout from './common/Layout';
 import { IEmployeeDtlRoute, IPosts } from '../interfaces';
 import Axios, { AxiosResponse } from 'axios';
 import { POSTS } from '../constants';
-import { CircularProgress, Card, CardContent, Typography, Divider } from '@material-ui/core';
+import { Card, CardContent, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from './common/Navbar';
+import RenderContent from './common/RenderContent';
 
 const useStyles = makeStyles({
     mb: {
@@ -34,24 +36,6 @@ const PostDetails: React.FC<IEmployeeDtlRoute> = (props) => {
         setLoading(false);
     }
 
-    const renderContent = () => {
-        if (loading) {
-            return <CircularProgress />
-        } else if (ntwkIssue) {
-            return <p>You are not connected to network</p>
-        } else {
-            return (
-                <Card className={classes.pos}>
-                    <CardContent>
-                        <Typography variant="h6" component="h2">{post?.title}</Typography>
-                        <Divider className={classes.mb} />
-                        <Typography variant="body2" component="p">{post?.body}</Typography>
-                    </CardContent>
-                </Card>
-            )
-        }
-    }
-
     useEffect(() => {
         setLoading(true)
         loadPostsDetails()
@@ -61,9 +45,15 @@ const PostDetails: React.FC<IEmployeeDtlRoute> = (props) => {
         <React.Fragment>
             <Navbar />
             <Layout pageTitle='Details'>
-                <section>
-                    {renderContent()}
-                </section>
+                <RenderContent loading={loading} ntwkIssue={ntwkIssue}>
+                    <Card className={classes.pos}>
+                        <CardContent>
+                            <Typography variant="h6" component="h2">{post?.title}</Typography>
+                            <Divider className={classes.mb} />
+                            <Typography variant="body2" component="p">{post?.body}</Typography>
+                        </CardContent>
+                    </Card>
+                </RenderContent>
             </Layout>
         </React.Fragment>
     )

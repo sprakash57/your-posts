@@ -42,7 +42,6 @@ type IProps = { user: IEmployee }
 const EmployeeCard: React.FC<IProps> = (props) => {
     const { name, address: { city }, email, website, phone, id } = props.user;
     const classes = useStyles();
-    console.log(props);
 
     return (
         <Card className={classes.root}>

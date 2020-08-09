@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { USERS } from '../constants';
 import { IEmployee } from '../interfaces';
 import Layout from './common/Layout';
 import { Box } from '@material-ui/core';
 import EmployeeCard from './common/EmployeeCard';
 import Navbar from './common/Navbar';
+import RenderContent from './common/RenderContent';
 
 const Employees: React.FC = () => {
 
@@ -23,15 +23,6 @@ const Employees: React.FC = () => {
         }
         setLoading(false);
     }
-    const renderContent = () => {
-        if (loading) {
-            return <CircularProgress />
-        } else if (ntwkIssue) {
-            return <p>You are not connected to network</p>
-        } else {
-            return <Box>{users.length && users.map(user => <EmployeeCard key={user.id} user={user} />)}</Box>
-        }
-    }
 
     useEffect(() => {
         loadUsers()
@@ -41,9 +32,9 @@ const Employees: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <Layout pageTitle='Employees'>
-                <section>
-                    {renderContent()}
-                </section>
+                <RenderContent loading={loading} ntwkIssue={ntwkIssue}>
+                    <Box>{users.length && users.map(user => <EmployeeCard key={user.id} user={user} />)}</Box>
+                </RenderContent>
             </Layout>
         </React.Fragment>
     )

@@ -3,10 +3,11 @@ import { IPosts } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
 import { POSTS } from '../constants';
 import Layout from './common/Layout';
-import { CircularProgress, Box, Card, CardContent, Typography, CardActions } from '@material-ui/core';
+import { Box, Card, CardContent, Typography, CardActions } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Navbar from './common/Navbar';
+import RenderContent from './common/RenderContent';
 
 const useStyles = makeStyles({
     links: {
@@ -46,25 +47,6 @@ const Posts: React.FC = () => {
         setLoading(false);
     }
 
-    const renderContent = () => {
-        if (loading) {
-            return <CircularProgress />
-        } else if (ntwkIssue) {
-            return <p>You are not connected to network</p>
-        } else {
-            return <Box>{posts.length && posts.map(post => (
-                <Card className={classes.pos} key={post.id}>
-                    <CardContent className={classes.pb0}>
-                        <Typography variant="h6" component="h2">{post.title}</Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Link className={classes.links} to={`/posts/${post.id}`}>Show more</Link>
-                    </CardActions>
-                </Card>
-            ))}</Box>
-        }
-    }
-
     useEffect(() => {
         setLoading(true);
         loadPosts();
@@ -74,9 +56,19 @@ const Posts: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <Layout pageTitle='Posts'>
-                <section>
-                    {renderContent()}
-                </section>
+                <RenderContent loading={loading} ntwkIssue={ntwkIssue}>
+                    <Box>{posts.length && posts.map(post => (
+                        <Card className={classes.pos} key={post.id}>
+                            <CardContent className={classes.pb0}>
+                                <Typography variant="h6" component="h2">{post.title}</Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Link className={classes.links} to={`/posts/${post.id}`}>Show more</Link>
+                            </CardActions>
+                        </Card>
+                    ))}
+                    </Box>
+                </RenderContent>
             </Layout>
         </React.Fragment>
     )
