@@ -6,6 +6,7 @@ import { IEmployee } from '../interfaces';
 import Layout from './common/Layout';
 import { Box } from '@material-ui/core';
 import EmployeeCard from './common/EmployeeCard';
+import Navbar from './common/Navbar';
 
 const Employees: React.FC = () => {
 
@@ -37,11 +38,14 @@ const Employees: React.FC = () => {
     }, []);
 
     return (
-        <Layout pageTitle='Employees'>
-            <section className='users-list'>
-                {renderContent()}
-            </section>
-        </Layout>
+        <React.Fragment>
+            <Navbar />
+            <Layout pageTitle='Employees'>
+                <section>
+                    {renderContent()}
+                </section>
+            </Layout>
+        </React.Fragment>
     )
 }
 

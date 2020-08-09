@@ -1,6 +1,6 @@
 export interface IAddress {
     city: string,
-    geo: { lat: string, lang: string },
+    geo: { lat: string, lng: string },
     street: string,
     suite: string,
     zipcode: string
@@ -32,4 +32,8 @@ export interface IPosts {
     id: number,
     title: string,
     body: string
+}
+
+export interface ILocation {
+    formatted_address: string
 }

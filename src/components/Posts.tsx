@@ -6,6 +6,7 @@ import Layout from './common/Layout';
 import { CircularProgress, Box, Card, CardContent, Typography, CardActions } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import Navbar from './common/Navbar';
 
 const useStyles = makeStyles({
     links: {
@@ -70,11 +71,14 @@ const Posts: React.FC = () => {
     }, []);
 
     return (
-        <Layout pageTitle='Posts'>
-            <section>
-                {renderContent()}
-            </section>
-        </Layout>
+        <React.Fragment>
+            <Navbar />
+            <Layout pageTitle='Posts'>
+                <section>
+                    {renderContent()}
+                </section>
+            </Layout>
+        </React.Fragment>
     )
 }
 

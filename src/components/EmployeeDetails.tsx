@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -5,13 +6,16 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Box, Divider, CircularProgress, Avatar } from '@material-ui/core';
 import Layout from './common/Layout';
-import { IEmployeeDtlRoute, IEmployee } from '../interfaces';
+import { IEmployeeDtlRoute, IEmployee, ILocation } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
-import { USERS, IMAGE } from '../constants';
+import { USERS, IMAGE, LOCATION_API } from '../constants';
+import Navbar from './common/Navbar';
+
+type CurrentLocation = { results: ILocation[] }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-        minWidth: 375,
+        minWidth: 600,
         marginBottom: 10,
         boxShadow: '0px 2px 4px rgba(0,0,0,0.5)',
         borderRadius: 10
@@ -44,11 +48,17 @@ const EmployeeDetails: React.FC<IEmployeeDtlRoute> = (props) => {
     const [details, setDetails] = useState<IEmployee>();
     const [ntwkIssue, setNtwkIssue] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [location, setLocation] = useState('');
 
     const loadUserDetails = async () => {
         try {
             const response: AxiosResponse<IEmployee> = await axios.get(`${USERS}/${props.match.params.id}`);
             setDetails(response.data);
+            const { lat, lng } = response.data.address.geo;
+            const location: AxiosResponse<CurrentLocation> = await axios.get(`${LOCATION_API}${lat},${lng}&key=${process.env.REACT_APP_LOC_API}`);
+            const { data } = location;
+            console.log(data)
+            setLocation(data.results[0].formatted_address)
         } catch (error) {
             setNtwkIssue(true);
         }
@@ -66,8 +76,11 @@ const EmployeeDetails: React.FC<IEmployeeDtlRoute> = (props) => {
                     <CardContent>
                         <Box className={classes.alignCenter}>
                             <Avatar alt={details?.name} src={IMAGE} className={classes.large} />
-                            <Typography variant="h5" component="h2" className={classes.pos}>
+                            <Typography variant='h5' component="h6" className={classes.pos}>
                                 <strong>{details?.username}</strong>
+                            </Typography>
+                            <Typography variant='body1'>
+                                <span role='img' aria-label='location'>📌</span> {location || 'Location not available'}
                             </Typography>
                         </Box>
                         <Box className={classes.pos}>
@@ -130,11 +143,14 @@ const EmployeeDetails: React.FC<IEmployeeDtlRoute> = (props) => {
     }, []);
 
     return (
-        <Layout pageTitle={details?.name}>
-            <section className='users-list'>
-                {renderContent()}
-            </section>
-        </Layout>
+        <React.Fragment>
+            <Navbar />
+            <Layout pageTitle={details?.name}>
+                <section>
+                    {renderContent()}
+                </section>
+            </Layout>
+        </React.Fragment>
     )
 }
 

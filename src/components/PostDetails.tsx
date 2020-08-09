@@ -5,6 +5,7 @@ import Axios, { AxiosResponse } from 'axios';
 import { POSTS } from '../constants';
 import { CircularProgress, Card, CardContent, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Navbar from './common/Navbar';
 
 const useStyles = makeStyles({
     mb: {
@@ -57,11 +58,14 @@ const PostDetails: React.FC<IEmployeeDtlRoute> = (props) => {
     }, []);
 
     return (
-        <Layout pageTitle='Details'>
-            <section>
-                {renderContent()}
-            </section>
-        </Layout>
+        <React.Fragment>
+            <Navbar />
+            <Layout pageTitle='Details'>
+                <section>
+                    {renderContent()}
+                </section>
+            </Layout>
+        </React.Fragment>
     )
 }
 

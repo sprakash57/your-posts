@@ -10,7 +10,7 @@ import { IEmployee } from '../../interfaces';
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 375,
+        minWidth: 600,
         marginBottom: 10,
         boxShadow: '0px 2px 4px rgba(0,0,0,0.5)',
         borderRadius: 10
