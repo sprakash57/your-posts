@@ -3,11 +3,14 @@ import { IPosts } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
 import { POSTS } from '../constants';
 import Layout from './common/Layout';
-import { Box, Card, CardContent, Typography, CardActions } from '@material-ui/core';
+import { Card, CardContent, Typography, CardActions } from '@material-ui/core';
+import { FixedSizeList as List } from "react-window";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Navbar from './common/Navbar';
 import RenderContent from './common/RenderContent';
+
+type IRow = { index: number, style: any }
 
 const useStyles = makeStyles({
     links: {
@@ -25,7 +28,6 @@ const useStyles = makeStyles({
     },
     pos: {
         minWidth: 375,
-        marginBottom: 10,
         boxShadow: '0px 2px 4px rgba(0,0,0,0.5)',
         borderRadius: 10
     }
@@ -47,6 +49,19 @@ const Posts: React.FC = () => {
         setLoading(false);
     }
 
+    const Row: React.FC<IRow> = ({ index, style }) => {
+        return (
+            <Card className={classes.pos} style={style}>
+                <CardContent className={classes.pb0}>
+                    <Typography variant="h6" component="h2">{posts[index].title}</Typography>
+                </CardContent>
+                <CardActions>
+                    <Link className={classes.links} to={`/posts/${posts[index].id}`}>Show more</Link>
+                </CardActions>
+            </Card>
+        )
+    }
+
     useEffect(() => {
         setLoading(true);
         loadPosts();
@@ -57,17 +72,9 @@ const Posts: React.FC = () => {
             <Navbar />
             <Layout pageTitle='Posts'>
                 <RenderContent loading={loading} ntwkIssue={ntwkIssue}>
-                    <Box>{posts.length && posts.map(post => (
-                        <Card className={classes.pos} key={post.id}>
-                            <CardContent className={classes.pb0}>
-                                <Typography variant="h6" component="h2">{post.title}</Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Link className={classes.links} to={`/posts/${post.id}`}>Show more</Link>
-                            </CardActions>
-                        </Card>
-                    ))}
-                    </Box>
+                    <List height={500} itemCount={posts.length} itemSize={100} width={800}>
+                        {Row}
+                    </List>
                 </RenderContent>
             </Layout>
         </React.Fragment>
